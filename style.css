@@ -36,3 +36,52 @@ color:white;
 text-align:center;
 padding:20px;
 }
+body{
+font-family: Arial;
+margin:0;
+background:#f4f6f7;
+}
+
+header{
+background:#1f2933;
+color:white;
+text-align:center;
+padding:60px;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+background:#27ae60;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.services{
+padding:50px;
+text-align:center;
+}
+
+.service{
+background:white;
+margin:20px auto;
+padding:20px;
+max-width:400px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.why{
+background:#ecf0f1;
+padding:40px;
+text-align:center;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:20px;
+}
