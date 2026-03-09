@@ -85,3 +85,27 @@ color:white;
 text-align:center;
 padding:20px;
 }
+.contact{
+padding:50px;
+text-align:center;
+background:white;
+}
+
+form{
+max-width:400px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+input, textarea{
+padding:12px;
+font-size:16px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+textarea{
+min-height:100px;
+}
