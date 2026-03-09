@@ -1,123 +1,80 @@
-<!DOCTYPE html>
-<html lang="ru">
+/* ------------------ Модальное окно ------------------ */
+const modal = document.getElementById('modal');
+function openModal() {
+  modal.style.display = 'block';
+}
+function closeModal() {
+  modal.style.display = 'none';
+}
+window.onclick = function(event) {
+  if(event.target === modal){
+    closeModal();
+  }
+}
 
-<head>
-<meta charset="UTF-8">
-<title>Травля тараканов</title>
-<link rel="stylesheet" href="style.css">
-</head>
+/* ------------------ Форма заказа ------------------ */
+document.getElementById('orderForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  alert("Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+  this.reset();
+});
+document.getElementById('modalForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  alert("Ваша заявка отправлена через модальное окно!");
+  closeModal();
+  this.reset();
+});
 
-<body>
+/* ------------------ Плавная прокрутка ------------------ */
+document.querySelectorAll('.navbar nav a').forEach(link => {
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
 
-<header>
-    <section class="hero">
+/* ------------------ Слайдер отзывов ------------------ */
+const reviews = document.querySelectorAll('.review');
+let currentReview = 0;
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/American-cockroach.jpg">
+function showReview(index) {
+  reviews.forEach((r, i) => {
+    r.style.display = i === index ? 'block' : 'none';
+  });
+}
 
-<h2>Уничтожаем тараканов быстро и безопасно</h2>
+// Инициализация слайдера
+if(reviews.length > 0){
+  showReview(currentReview);
+  setInterval(() => {
+    currentReview = (currentReview + 1) % reviews.length;
+    showReview(currentReview);
+  }, 5000); // автоматическое переключение каждые 5 секунд
+}
 
-<p>Профессиональная обработка квартир, домов и ресторанов</p>
+function nextReview(){
+  currentReview = (currentReview + 1) % reviews.length;
+  showReview(currentReview);
+}
 
-</section>
-<section class="prices">
+function prevReview(){
+  currentReview = (currentReview - 1 + reviews.length) % reviews.length;
+  showReview(currentReview);
+}
 
-<h2>Цены</h2>
+/* ------------------ Анимация появления секций ------------------ */
+const animatedSections = document.querySelectorAll('.animate-section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
 
-<div class="price-card">
-<h3>1-комнатная квартира</h3>
-<p>от 49€</p>
-</div>
-
-<div class="price-card">
-<h3>2-комнатная квартира</h3>
-<p>от 69€</p>
-</div>
-
-<div class="price-card">
-<h3>Ресторан / кухня</h3>
-<p>от 120€</p>
-</div>
-
-</section>
-<h1>Профессиональная дезинсекция от тараканов и клопов</h1>
-<p>Уничтожаем тараканов за 1 обработку</p>
-<button onclick="order()">Заказать обработку</button>
-</header>
-
-<section class="services">
-
-<h2>Наши услуги</h2>
-
-<div class="service">
-<h3>Квартиры</h3>
-<p>Уничтожение тараканов в квартирах и домах.</p>
-</div>
-
-<div class="service">
-<h3>Рестораны</h3>
-<p>Профессиональная обработка кухонь и ресторанов.</p>
-</div>
-
-<div class="service">
-<h3>Подвалы</h3>
-<p>Комплексная дезинсекция подвальных помещений.</p>
-</div>
-
-</section>
-
-<section class="why">
-
-<h2>Почему выбирают нас</h2>
-
-<ul>
-<li>Гарантия результата</li>
-<li>Безопасные препараты</li>
-<li>Работаем 24/7</li>
-</ul>
-
-</section>
-<section class="reviews">
-
-<h2>Отзывы клиентов</h2>
-
-<div class="review">
-<p>"Тараканы исчезли после первой обработки!"</p>
-<b>Анна</b>
-</div>
-
-<div class="review">
-<p>"Очень быстро приехали и всё сделали."</p>
-<b>Михаил</b>
-</div>
-
-<div class="review">
-<p>"Теперь рекомендую соседям."</p>
-<b>Ирина</b>
-</div>
-
-</section>
-<section class="contact">
-
-<h2>Заказать обработку</h2>
-
-<form id="orderForm">
-
-<input type="text" placeholder="Ваше имя" required>
-
-<input type="tel" placeholder="Телефон" required>
-
-<textarea placeholder="Адрес или комментарий"></textarea>
-
-<button type="submit">Отправить заявку</button>
-
-</form>
-
-</section>
-<footer>
-<p>© 2026 Служба дезинсекции</p>
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+animatedSections.forEach(section => {
+  observer.observe(section);
+});
