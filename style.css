@@ -109,3 +109,43 @@ border:1px solid #ccc;
 textarea{
 min-height:100px;
 }
+.hero{
+text-align:center;
+padding:40px;
+background:#ecf0f1;
+}
+
+.hero img{
+width:250px;
+border-radius:10px;
+}
+
+.prices{
+padding:50px;
+text-align:center;
+background:white;
+}
+
+.price-card{
+background:#f7f7f7;
+padding:20px;
+margin:15px auto;
+max-width:300px;
+border-radius:10px;
+font-size:20px;
+}
+
+.reviews{
+background:#f4f6f7;
+padding:50px;
+text-align:center;
+}
+
+.review{
+background:white;
+padding:20px;
+margin:15px auto;
+max-width:400px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
