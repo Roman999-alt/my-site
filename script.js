@@ -12,18 +12,59 @@ window.onclick = function(event) {
   }
 }
 
-/* ------------------ Форма заказа ------------------ */
-document.getElementById('orderForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  alert("Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.");
-  this.reset();
-});
-document.getElementById('modalForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  alert("Ваша заявка отправлена через модальное окно!");
-  closeModal();
-  this.reset();
-});
+/* ------------------ Форма заказа (отправка в Telegram) ------------------ */
+
+const TOKEN = "8440870990:AAGV0EoF0rgUAmIoP-IOBiOJeq0Sw-6InxU";
+const CHAT_ID = "5058136349";
+const TELEGRAM_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+function sendToTelegram(name, phone, service, comment){
+  const message = `Новая заявка с сайта!\n\nИмя: ${name}\nТелефон: ${phone}\nУслуга: ${service}\nКомментарий: ${comment}`;
+
+  fetch(TELEGRAM_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: message
+    })
+  }).then(()=>{
+    alert("Заявка отправлена! Мы скоро с вами свяжемся.");
+  });
+}
+
+const orderForm = document.getElementById('orderForm');
+if(orderForm){
+  orderForm.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = this.querySelector('input[type="text"]').value;
+    const phone = this.querySelector('input[type="tel"]').value;
+    const serviceSelect = this.querySelector('select');
+    const service = serviceSelect ? serviceSelect.value : "Не указано";
+    const commentField = this.querySelector('textarea');
+    const comment = commentField ? commentField.value : "";
+
+    sendToTelegram(name, phone, service, comment);
+    this.reset();
+  });
+}
+
+const modalForm = document.getElementById('modalForm');
+if(modalForm){
+  modalForm.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = this.querySelector('input[type="text"]').value;
+    const phone = this.querySelector('input[type="tel"]').value;
+    const commentField = this.querySelector('textarea');
+    const comment = commentField ? commentField.value : "";
+
+    sendToTelegram(name, phone, "Заявка из модального окна", comment);
+    closeModal();
+    this.reset();
+  });
+}
 
 /* ------------------ Плавная прокрутка ------------------ */
 document.querySelectorAll('.navbar nav a').forEach(link => {
